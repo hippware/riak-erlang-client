@@ -49,3 +49,23 @@ characters_to_unicode_binary(String) ->
         Binary ->
             Binary
     end.
+
+%% @doc Return the value of allow_listing, which, if set to `true'
+%%      will allow listing keys and buckets.
+-spec get_allow_listing() -> boolean().
+get_allow_listing() ->
+    case application:get_env(riakc, allow_listing) of
+        {ok, true} -> true;
+        _ -> false
+    end.
+
+-spec get_allow_listing(proplists:proplist()) -> boolean().
+get_allow_listing(Options) ->
+    case application:get_env(riakc, allow_listing) of
+        {ok, true} -> true;
+        _ ->
+            case proplists:get_value(allow_listing, Options) of
+                true -> true;
+                _ -> false
+            end
+    end.

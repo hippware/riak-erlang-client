@@ -34,6 +34,7 @@ endif
 	git tag --sign -a "$(VERSION)" -m "riak-erlang-client $(VERSION)" --local-user "$(RELEASE_GPG_KEYNAME)"
 	git push --tags
 	$(PROJDIR)/tools/build/publish $(VERSION) master 'Riak Erlang Client' 'riak-erlang-client'
+	mix deps.get
 	mix hex.publish
 
 
